@@ -1,6 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import artToZip from '../data/art-to-zip.json';
+import tappRoles from '../data/tapp-roles.json';
+
+type TappRoles = {
+  [art: string]: {
+    [vertical: string]: string;
+  };
+};
 
 export default function RoutingForm() {
   const [accountName, setAccountName] = useState('');
@@ -11,7 +19,21 @@ export default function RoutingForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    setResult(`Assigned Rep: Rep for ZIP ${zipCode} in ${vertical}`);
+    const normalizedZip = zipCode.trim();
+    const art = (artToZip as Record<string, string>)[normalizedZip];
+    const rep = art ? (tappRoles as TappRoles)[art]?.[vertical] : null;
+
+    if (!art) {
+      setResult(`No ART found for ZIP ${normalizedZip}`);
+      return;
+    }
+
+    if (!rep) {
+      setResult(`No rep found for ${vertical} in ${art}`);
+      return;
+    }
+
+    setResult(`Account: ${accountName} | ZIP: ${normalizedZip} | ART: ${art} | Assigned Rep: ${rep}`);
   };
 
   return (

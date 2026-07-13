@@ -1,0 +1,14 @@
+{
+  "ART-West-1": {
+    "K12": "Jane Smith",
+    "Higher Ed": "John Doe"
+  },
+  "ART-East-1": {
+    "K12": "Sarah Johnson",
+    "Higher Ed": "Mike Brown"
+  },
+  "ART-Central-1": {
+    "K12": "Emily Davis",
+    "Higher Ed": "Chris Wilson"
+  }
+}
